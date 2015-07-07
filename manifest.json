@@ -1,0 +1,14 @@
+{
+  "manifest_version": 2,
+
+  "name": "SA ID Number Tools",
+  "description": "This extension generates a South African ID number that validates correctly, and can analyse ID numbers.",
+  "version": "1.7",
+
+  "permissions": [ "clipboardWrite"],
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "generator.html"
+  }
+}

@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+    <title>SA ID Number Generator</title>
+
+    <link rel="stylesheet" type="text/css" href="generator.css">
+
+    <script src="jQuery.js"></script>
+    <script src="jSAID.js"></script>
+    <script src="idgenerator.js"></script>
+</head>
+
+<body>
+<div>
+    <div class="id-container">
+        <div class="id-text-container">
+            <input type="text" class="id-omnibox"/>
+            <input type="text" class="id-omnibox"/>
+            <input type="text" class="id-omnibox"/>
+            <input type="text" class="id-omnibox"/>
+            <input type="text" class="id-omnibox"/>
+            <input type="text" class="id-omnibox"/>
+            <input type="text" class="id-omnibox"/>
+            <input type="text" class="id-omnibox"/>
+            <input type="text" class="id-omnibox"/>
+            <input type="text" class="id-omnibox"/>
+
+            <input type="text" class="id-omnibox"/>
+            <input type="text" class="id-omnibox"/>
+            <input type="text" class="id-omnibox"/>
+        </div>
+        <div class="id-status"></div>
+    </div>
+    <div class="controls">
+        <p>
+            Date of birth: <input type="date" class="dob" placeholder="YYMMDD"/>
+        </p>
+
+        <p>
+            Male: <input type="checkbox" class="male"/>
+
+            SA Citizen: <input type="checkbox" class="citizen"/>
+
+            <input type="button" value="Generate" class='generate-button'/>
+            <input type="button" value="Copy" class='copy-button'/>
+        </p>
+
+    </div>
+</div>
+<textarea class="hidden"></textarea>
+</body>
+</html>
+

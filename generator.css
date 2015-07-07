@@ -1,0 +1,52 @@
+body {
+    font-family: 'Open Sans';
+}
+
+.id-omnibox {
+    width: 1em;
+    border: none;
+    border-left: 1px solid #CCC;
+}
+
+.id-container {
+    text-align: center;
+    width: 250px;
+}
+
+.id-text-container {
+    font-size: 0;
+    border: 4px solid #ccc;
+    display: inline-block;
+    vertical-align: middle;
+    width: 182px;
+}
+
+.id-status {
+    height: 25px;
+    display: inline-block;
+    width: 50px;
+    vertical-align: middle;
+}
+
+.valid {
+    background: url(Circle_Green.png) no-repeat center center;
+    background-size: 25px;
+}
+
+.invalid {
+    background: url(Circle_Red.png) no-repeat center center;
+    background-size: 25px;
+}
+
+.controls {
+    text-align: center;
+}
+
+.hidden {
+    height: 0;
+    opacity: 0;
+    width: 0;
+    display: inherit;
+    padding: 0;
+    margin: 0;
+}
