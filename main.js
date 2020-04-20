@@ -57,7 +57,8 @@ function dateToString(date) {
 
 chrome.contextMenus.onClicked.addListener(function (itemData) {
     let date = randomDate("01-01-1970", "01-01-1998");
-    let dobString = dateToString(date);
+    let dob = dateToString(date);
+    let dobString = dob.substring(dob.length - 6);
     if (itemData.menuItemId === "male-id") {
         let id = generateID(dobString, true, true);
         sendMessage('id', id);
