@@ -47,7 +47,7 @@ function dateToString(date) {
     if (month < 10) {
         month = "0" + month;
     }
-    let day = date.getDay()+1;
+    let day = date.getDate();
     if (day < 10) {
         day = "0" + day;
     }

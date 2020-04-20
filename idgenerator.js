@@ -21,7 +21,7 @@ $(function () {
 
         var $id = $('.id-status');
 
-        if (total.length == 0) {
+        if (total.length === 0) {
             $id.removeClass('valid');
             $id.removeClass('invalid');
             return;
@@ -38,17 +38,26 @@ $(function () {
         $id.removeClass('invalid');
         $id.addClass('valid');
 
-        var curr_date = analysis.birthdate.getDate();
-        var curr_month = analysis.birthdate.getMonth() + 1; //Months are zero based
-        var curr_year = analysis.birthdate.getFullYear();
+        $('.dob').val(dateToString(analysis.birthdate));
 
-        $('.dob').val('' + curr_year +"-"+ curr_month +"-"+ curr_date);
-
-        var genderChecked = (analysis.gender == 'male');
+        var genderChecked = (analysis.gender === 'male');
         $('.male').attr('checked', genderChecked);
 
-        var citizenChecked = analysis.citizen == 'citizen';
+        var citizenChecked = analysis.citizen === 'citizen';
         $('.citizen').attr('checked', citizenChecked);
+    }
+
+    function dateToString(date) {
+        let month = date.getMonth() + 1;
+        if (month < 10) {
+            month = "0" + month;
+        }
+        let day = date.getDate();
+        if (day < 10) {
+            day = "0" + day;
+        }
+
+        return "" + date.getFullYear() + "-" + month + "-" + day;
     }
 
     $boxes.attr('maxlength', 1);
@@ -90,7 +99,7 @@ $(function () {
         var male = $('.male').is(':checked'); //gender
         var citizen = $('.citizen').is(':checked'); //citizen or resident
 
-        var id = generateID(dob.replace(/-/g, "").substring(dob.length-8), male, citizen);
+        var id = generateID(dob.replace(/-/g, "").substring(dob.length - 8), male, citizen);
 
         placeId(id);
         checkForValidID();
