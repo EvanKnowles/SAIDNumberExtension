@@ -1,25 +1,34 @@
 $(function () {
-    var $boxes = $('.id-omnibox');
+    const LAST_ID = "last-id";
+    let $boxes = $('.id-omnibox');
 
     function getTotalID() {
-        var total = '';
+        let total = '';
         $boxes.each(function (e, t) {
             total += t.value;
         });
         return total;
     }
 
+    let lastIdGenerated = localStorage.getItem(LAST_ID);
+    if (lastIdGenerated && lastIdGenerated !== "null") {
+        placeId(lastIdGenerated);
+        checkForValidID();
+    } else {
+        produceRandomIDNumber();
+    }
+
     function placeId(id) {
-        var index = 0;
+        let index = 0;
         $boxes.each(function (e, t) {
             t.value = id[index++];
         });
     }
 
     function checkForValidID() {
-        var total = getTotalID();
+        const total = getTotalID();
 
-        var $id = $('.id-status');
+        const $id = $('.id-status');
 
         if (total.length === 0) {
             $id.removeClass('valid');
@@ -27,7 +36,7 @@ $(function () {
             return;
         }
 
-        var analysis = extractFromID(total);
+        const analysis = extractFromID(total);
 
         if (!analysis.valid) {
             $id.removeClass('valid');
@@ -40,11 +49,11 @@ $(function () {
 
         $('.dob').val(dateToString(analysis.birthdate));
 
-        var genderChecked = (analysis.gender === 'male');
-        $('.male').attr('checked', genderChecked);
+        const genderChecked = (analysis.gender === 'male');
+        $('.male').prop('checked', genderChecked);
 
-        var citizenChecked = analysis.citizen === 'citizen';
-        $('.citizen').attr('checked', citizenChecked);
+        const citizenChecked = analysis.citizen === 'citizen';
+        $('.citizen').prop('checked', citizenChecked);
     }
 
     function dateToString(date) {
@@ -63,23 +72,23 @@ $(function () {
     $boxes.attr('maxlength', 1);
 
     $boxes.on('keydown', function (event) {
-        var $this = $(this);
-        var $prev = $this.prev('.id-omnibox');
-        var $next = $this.next('.id-omnibox');
+        const $this = $(this);
+        const $prev = $this.prev('.id-omnibox');
+        const $next = $this.next('.id-omnibox');
 
-        if (event.which == 8) {
-            if ($this.val() == '') {
+        if (event.which === 8) {
+            if ($this.val() === '') {
                 $prev.focus();
                 $prev.val('');
             } else {
                 $this.val('');
             }
-        } else if (event.which == 37) {
+        } else if (event.which === 37) {
             $prev.focus();
-        } else if (event.which == 39) {
+        } else if (event.which === 39) {
             $next.focus();
         } else {
-            var keyCode = event.keyCode;
+            const keyCode = event.keyCode;
             if (keyCode >= 48 && keyCode <= 57) {
                 $this.val(String.fromCharCode(keyCode));
                 $next.focus();
@@ -94,25 +103,44 @@ $(function () {
         event.preventDefault();
     });
 
-    $('.generate-button').click(function () {
-        var dob = $('.dob').val();  //date of birth
-        var male = $('.male').is(':checked'); //gender
-        var citizen = $('.citizen').is(':checked'); //citizen or resident
+    function produceRandomIDNumber() {
+        let fullYear = new Date().getFullYear();
 
-        var id = generateID(dob.replace(/-/g, "").substring(dob.length - 8), male, citizen);
+        let date = randomDate("01-01-" + (fullYear - 70), "01-01-" + (fullYear - 19));
+        let dob = dateToUnformattedString(date);
+        let dobString = dob.substring(dob.length - 6);
+        let male = !!Math.round(randomValueBetween(0, 1));
+
+        let id = generateID(dobString, male, true);
+        placeId(id);
+        checkForValidID();
+    }
+
+    $('.random-button').click(function () {
+        produceRandomIDNumber();
+    });
+
+    $('.generate-button').click(function () {
+        const dob = $('.dob').val();  //date of birth
+        const male = $('.male').is(':checked'); //gender
+        const citizen = $('.citizen').is(':checked'); //citizen or resident
+
+        localStorage.setItem(LAST_ID, null);
+
+        const id = generateID(dob.replace(/-/g, "").substring(dob.length - 8), male, citizen);
 
         placeId(id);
         checkForValidID();
     });
 
     $('.copy-button').click(function () {
-        var $hidden = $('.hidden');
+        const $hidden = $('.hidden');
         $hidden.val(getTotalID()).select();
 
+        localStorage.setItem(LAST_ID, getTotalID());
+
         try {
-            var successful = document.execCommand('copy');
-            var msg = successful ? 'successful' : 'unsuccessful';
-            console.log('Copy email command was ' + msg);
+            document.execCommand('copy');
         } catch (err) {
             console.log('Oops, unable to copy');
         }

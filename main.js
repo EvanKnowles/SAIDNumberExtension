@@ -24,40 +24,9 @@ chrome.runtime.onInstalled.addListener(function () {
     });
 });
 
-function randomDate(date1, date2) {
-    function randomValueBetween(min, max) {
-        return Math.random() * (max - min) + min;
-    }
-
-    date1 = date1 || '01-01-1970'
-    date2 = date2 || new Date().toLocaleDateString()
-
-    date1 = new Date(date1).getTime()
-    date2 = new Date(date2).getTime()
-
-    if (date1 > date2) {
-        return new Date(randomValueBetween(date2, date1));
-    } else {
-        return new Date(randomValueBetween(date1, date2));
-    }
-}
-
-function dateToString(date) {
-    let month = date.getMonth() + 1;
-    if (month < 10) {
-        month = "0" + month;
-    }
-    let day = date.getDate();
-    if (day < 10) {
-        day = "0" + day;
-    }
-
-    return "" + date.getFullYear() + month + day;
-}
-
 chrome.contextMenus.onClicked.addListener(function (itemData) {
     let date = randomDate("01-01-1970", "01-01-1998");
-    let dob = dateToString(date);
+    let dob = dateToUnformattedString(date);
     let dobString = dob.substring(dob.length - 6);
     if (itemData.menuItemId === "male-id") {
         let id = generateID(dobString, true, true);
