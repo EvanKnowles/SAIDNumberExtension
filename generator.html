@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+    <meta charset="utf-8">
     <title>SA ID Number Generator</title>
 
     <link rel="stylesheet" type="text/css" href="generator.css">
@@ -11,47 +12,63 @@
 </head>
 
 <body>
-<div>
-    <div class="id-container">
+<div class="app">
+    <header class="app-header">
+        <h1>SA ID Number</h1>
+        <div class="id-status" role="status" aria-live="polite"></div>
+    </header>
+
+    <div class="id-field">
         <div class="id-text-container">
-            <input type="text" class="id-omnibox"/>
-            <input type="text" class="id-omnibox"/>
-            <input type="text" class="id-omnibox"/>
-            <input type="text" class="id-omnibox"/>
-            <input type="text" class="id-omnibox"/>
-            <input type="text" class="id-omnibox"/>
-            <input type="text" class="id-omnibox"/>
-            <input type="text" class="id-omnibox"/>
-            <input type="text" class="id-omnibox"/>
-            <input type="text" class="id-omnibox"/>
-
-            <input type="text" class="id-omnibox"/>
-            <input type="text" class="id-omnibox"/>
-            <input type="text" class="id-omnibox"/>
+            <input type="text" class="id-omnibox" inputmode="numeric" autocomplete="off" aria-label="ID digit"/>
+            <input type="text" class="id-omnibox" inputmode="numeric" autocomplete="off" aria-label="ID digit"/>
+            <input type="text" class="id-omnibox" inputmode="numeric" autocomplete="off" aria-label="ID digit"/>
+            <input type="text" class="id-omnibox" inputmode="numeric" autocomplete="off" aria-label="ID digit"/>
+            <input type="text" class="id-omnibox" inputmode="numeric" autocomplete="off" aria-label="ID digit"/>
+            <input type="text" class="id-omnibox" inputmode="numeric" autocomplete="off" aria-label="ID digit"/>
+            <input type="text" class="id-omnibox" inputmode="numeric" autocomplete="off" aria-label="ID digit"/>
+            <input type="text" class="id-omnibox" inputmode="numeric" autocomplete="off" aria-label="ID digit"/>
+            <input type="text" class="id-omnibox" inputmode="numeric" autocomplete="off" aria-label="ID digit"/>
+            <input type="text" class="id-omnibox" inputmode="numeric" autocomplete="off" aria-label="ID digit"/>
+            <input type="text" class="id-omnibox" inputmode="numeric" autocomplete="off" aria-label="ID digit"/>
+            <input type="text" class="id-omnibox" inputmode="numeric" autocomplete="off" aria-label="ID digit"/>
+            <input type="text" class="id-omnibox" inputmode="numeric" autocomplete="off" aria-label="ID digit"/>
         </div>
-        <div class="id-status"></div>
     </div>
+
     <div class="controls">
-        <p>
-            Date of birth: <input type="date" class="dob" max="9999-12-31" placeholder="YYMMDD"/>
-        </p>
+        <label class="field">
+            <span class="field-label">Date of birth</span>
+            <input type="date" class="dob" max="9999-12-31"/>
+        </label>
 
-        <p>
-            Male: <input type="checkbox" class="male"/>
+        <div class="toggle-row">
+            <label class="toggle">
+                <span class="switch">
+                    <input type="checkbox" class="male"/>
+                    <span class="slider"></span>
+                </span>
+                <span class="toggle-caption">Male</span>
+            </label>
 
-            SA Citizen: <input type="checkbox" class="citizen"/>
-        </p>
-
-        <div>
-            <input type="button" value="Random" class='random-button'/>
-            <input type="button" value="Generate" class='generate-button'/>
-            <input type="button" value="Copy" class='copy-button'/>
+            <label class="toggle">
+                <span class="switch">
+                    <input type="checkbox" class="citizen"/>
+                    <span class="slider"></span>
+                </span>
+                <span class="toggle-caption">SA citizen</span>
+            </label>
         </div>
 
-        <p>You can also insert random ID numbers directly into the page via the right-click context menu.</p>
+        <div class="button-row">
+            <button type="button" class="btn random-button">Random</button>
+            <button type="button" class="btn btn-primary generate-button">Generate</button>
+            <button type="button" class="btn copy-button">Copy</button>
+        </div>
+
+        <p class="hint">You can also insert random ID numbers straight into a page via the right-click context menu.</p>
     </div>
 </div>
-<textarea class="hidden"></textarea>
+<textarea class="hidden" aria-hidden="true" tabindex="-1"></textarea>
 </body>
 </html>
-
