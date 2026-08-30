@@ -1,52 +1,312 @@
+:root {
+    color-scheme: light dark;
+
+    --bg: #ffffff;
+    --surface: #f4f5f7;
+    --surface-2: #e8eaed;
+    --border: #d6dae0;
+    --text: #1b1f24;
+    --text-muted: #6b7280;
+    --accent: #15803d;
+    --accent-hover: #166534;
+    --accent-contrast: #ffffff;
+    --danger: #dc2626;
+    --focus: rgba(21, 128, 61, 0.3);
+    --radius: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #1b1e22;
+        --surface: #24272c;
+        --surface-2: #2d3137;
+        --border: #3a3f46;
+        --text: #e8eaed;
+        --text-muted: #9aa0a6;
+        --accent: #22c55e;
+        --accent-hover: #16a34a;
+        --accent-contrast: #06210f;
+        --danger: #f87171;
+        --focus: rgba(34, 197, 94, 0.35);
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
-    font-family: 'Open Sans';
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--text);
+    background: var(--bg);
 }
 
-.id-omnibox {
-    width: 1em;
-    border: none;
-    border-left: 1px solid #CCC;
+.app {
+    width: 300px;
+    padding: 16px;
 }
 
-.id-container {
-    text-align: center;
-    width: 250px;
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.app-header h1 {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+/* --- ID digit field --- */
+
+.id-field {
+    margin-bottom: 18px;
 }
 
 .id-text-container {
-    font-size: 0;
-    border: 4px solid #ccc;
-    display: inline-block;
-    vertical-align: middle;
-    width: 188px;
+    display: flex;
+    padding: 6px 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
 }
+
+.id-omnibox {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 7px 0;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    caret-color: var(--accent);
+    text-align: center;
+    font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 15px;
+    font-variant-numeric: tabular-nums;
+}
+
+.id-omnibox:focus {
+    outline: 0;
+    background: var(--surface-2);
+    border-radius: 5px;
+}
+
+/* group the number visually as YYMMDD SSSS CAZ */
+.id-omnibox:nth-child(7),
+.id-omnibox:nth-child(11) {
+    margin-left: 7px;
+}
+
+/* --- validity badge --- */
 
 .id-status {
-    height: 25px;
+    flex: none;
+    position: relative;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--surface-2);
+    transition: background-color 0.15s ease;
+}
+
+.id-status::after {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+    color: #ffffff;
+}
+
+.id-status.valid {
+    background: var(--accent);
+}
+
+.id-status.valid::after {
+    content: "\2713";
+}
+
+.id-status.invalid {
+    background: var(--danger);
+}
+
+.id-status.invalid::after {
+    content: "\2715";
+}
+
+/* --- controls --- */
+
+.field {
+    display: block;
+    margin-bottom: 14px;
+}
+
+.field-label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.dob {
+    width: 100%;
+    padding: 8px 10px;
+    font: inherit;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+.dob:focus {
+    outline: 0;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--focus);
+}
+
+/* --- toggle switches --- */
+
+.toggle-row {
+    display: flex;
+    gap: 22px;
+    margin-bottom: 16px;
+}
+
+.toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 500;
+}
+
+.switch {
+    position: relative;
     display: inline-block;
-    width: 50px;
-    vertical-align: middle;
+    width: 38px;
+    height: 22px;
+    flex: none;
 }
 
-.valid {
-    background: url(Circle_Green.png) no-repeat center center;
-    background-size: 25px;
+.switch input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    margin: 0;
+    opacity: 0;
 }
 
-.invalid {
-    background: url(Circle_Red.png) no-repeat center center;
-    background-size: 25px;
+.slider {
+    position: absolute;
+    inset: 0;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
-.controls {
+.slider::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 2px;
+    left: 2px;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    transition: transform 0.15s ease;
+}
+
+.switch input:checked + .slider {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.switch input:checked + .slider::before {
+    transform: translateX(16px);
+}
+
+.switch input:focus-visible + .slider {
+    box-shadow: 0 0 0 3px var(--focus);
+}
+
+/* --- buttons --- */
+
+.button-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.btn {
+    flex: 1;
+    padding: 8px 10px;
+    font: inherit;
+    font-weight: 600;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.12s ease, border-color 0.12s ease, transform 0.05s ease;
+}
+
+.btn:hover {
+    background: var(--surface-2);
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn:focus-visible {
+    outline: 0;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--focus);
+}
+
+.btn-primary {
+    color: var(--accent-contrast);
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+}
+
+/* --- misc --- */
+
+.hint {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.45;
+    color: var(--text-muted);
     text-align: center;
 }
 
 .hidden {
-    height: 0;
-    opacity: 0;
-    width: 0;
-    display: inherit;
+    position: absolute;
+    width: 1px;
+    height: 1px;
     padding: 0;
-    margin: 0;
+    margin: -1px;
+    border: 0;
+    opacity: 0;
+    overflow: hidden;
 }
